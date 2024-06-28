@@ -36,10 +36,10 @@ runs:
 
         if [[ "${{ runner.os }}" == "Windows" ]]; then
           7z.exe x cosmocc.zip
-          echo ${INSTALL_DIR_FORMATTED}\\cosmocc-${VERSION}\\bin >> $GITHUB_PATH
+          echo ${INSTALL_DIR_FORMATTED}\\bin >> $GITHUB_PATH
         else
           unzip -qq cosmocc.zip
-          echo ${INSTALL_DIR_FORMATTED}/cosmocc-${VERSION}/bin >> $GITHUB_PATH
+          echo ${INSTALL_DIR_FORMATTED}/bin >> $GITHUB_PATH
         fi
 
         ls -lah
