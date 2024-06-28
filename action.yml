@@ -42,7 +42,10 @@ runs:
           echo ${INSTALL_DIR_FORMATTED}/cosmocc-${VERSION}/bin >> $GITHUB_PATH
         fi
 
+        ls -lah
+
     - name: Verify cosmocc version
       shell: bash
       run: |
+        echo $PATH
         cosmocc --version
