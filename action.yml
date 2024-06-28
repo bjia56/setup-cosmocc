@@ -17,7 +17,7 @@ runs:
       run: |
         VERSION="${{ inputs.version }}"
         if [[ "${VERSION}" == "latest" ]]; then
-          VERSION=$(curl -s -S https://api.github.com/repos/jart/cosmopolitan/releases | jq -r .[0].tag_name)
+          VERSION=$(curl -s -S -H "Authorization: Bearer ${{ github.token }}" https://api.github.com/repos/jart/cosmopolitan/releases | jq -r .[0].tag_name)
         fi
 
         INSTALL_DIR="${{ runner.temp }}/cosmocc-${VERSION}"
