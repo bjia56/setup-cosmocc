@@ -44,5 +44,6 @@ runs:
         fi
 
     - name: Verify cosmocc version
+      shell: bash
       run: |
         cosmocc --version
