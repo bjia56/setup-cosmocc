@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: bitflight-devops/github-action-readme-generator@v1.3.14
-    - uses: peter-evans/create-pull-request@v3
+    - uses: peter-evans/create-pull-request@v6
       with:
         commit-message: ':package: [:robot:] Update README via action.yml'
         title: '[🤖] Update README via action.yml'
