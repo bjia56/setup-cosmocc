@@ -15,22 +15,21 @@ runs:
     - name: Download and extract
       shell: bash
       run: |
-        RAND=$RANDOM
-        INSTALL_DIR="${{ runner.temp }}/${RAND}"
+        VERSION="${{ inputs.version }}"
+        if [[ "${VERSION}" == "latest" ]]; then
+          VERSION=$(curl https://api.github.com/repos/jart/cosmopolitan/releases | jq -r .[0].tag_name)
+        fi
 
+        INSTALL_DIR="${{ runner.temp }}/cosmocc-${VERSION}"
         INSTALL_DIR_FORMATTED=${INSTALL_DIR}
         if [[ "${{ runner.os }}" == "Windows" ]]; then
           INSTALL_DIR_FORMATTED=$(cygpath -w ${INSTALL_DIR})
         fi
         echo "Using install dir ${INSTALL_DIR}"
 
+        rm -rf ${INSTALL_DIR}
         mkdir -p ${INSTALL_DIR}
         cd ${INSTALL_DIR}
-
-        VERSION="${{ inputs.version }}"
-        if [[ "${VERSION}" == "latest" ]]; then
-          VERSION=$(curl https://api.github.com/repos/jart/cosmopolitan/releases | jq -r .[0].tag_name)
-        fi
 
         echo "Downloading cosmocc ${VERSION}"
         curl -s -S -f -L -o cosmocc.zip https://github.com/jart/cosmopolitan/releases/download/${VERSION}/cosmocc-${VERSION}.zip
@@ -39,7 +38,7 @@ runs:
           7z.exe x cosmocc.zip
           echo ${INSTALL_DIR_FORMATTED}\\cosmocc-${VERSION}\\bin >> $GITHUB_PATH
         else
-          unzip cosmocc.zip
+          unzip -qq cosmocc.zip
           echo ${INSTALL_DIR_FORMATTED}/cosmocc-${VERSION}/bin >> $GITHUB_PATH
         fi
 
