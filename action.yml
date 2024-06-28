@@ -42,6 +42,13 @@ runs:
           echo ${INSTALL_DIR_FORMATTED}/bin >> $GITHUB_PATH
         fi
 
+        if [[ "${{ runner.os}}" == "Linux" ]]; then
+          echo "Fixing binfmt_misc"
+          APE_PATH=$(realpath ${INSTALL_DIR_FORMATTED}/bin/ape-$(uname -m).elf)
+          sudo sh -c "echo ':APE:M::MZqFpD::${APE_PATH}:' >/proc/sys/fs/binfmt_misc/register"
+          sudo sh -c "echo ':APE-jart:M::jartsr::${APE_PATH}:' >/proc/sys/fs/binfmt_misc/register"
+        fi
+
     - name: Verify cosmocc version
       shell: bash
       run: |
