@@ -1,0 +1,19 @@
+name: Update README
+
+on:
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: bitflight-devops/github-action-readme-generator@v1.3.14
+    - uses: peter-evans/create-pull-request@v3
+      with:
+        commit-message: ':package: [:robot:] Update README via action.yml'
+        title: '[🤖] Update README via action.yml'
+        body: Automatically generated PR - Updating README with documentation from action.yml
+        branch-suffix: random
+        delete-branch: true
