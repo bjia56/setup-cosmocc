@@ -17,7 +17,7 @@ runs:
       run: |
         VERSION="${{ inputs.version }}"
         if [[ "${VERSION}" == "latest" ]]; then
-          VERSION=$(curl https://api.github.com/repos/jart/cosmopolitan/releases | jq -r .[0].tag_name)
+          VERSION=$(curl -s -S https://api.github.com/repos/jart/cosmopolitan/releases | jq -r .[0].tag_name)
         fi
 
         INSTALL_DIR="${{ runner.temp }}/cosmocc-${VERSION}"
@@ -42,10 +42,7 @@ runs:
           echo ${INSTALL_DIR_FORMATTED}/bin >> $GITHUB_PATH
         fi
 
-        ls -lah
-
     - name: Verify cosmocc version
       shell: bash
       run: |
-        echo $PATH
         cosmocc --version
