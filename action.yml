@@ -49,6 +49,8 @@ runs:
           sudo sh -c "echo ':APE-jart:M::jartsr::${APE_PATH}:' >/proc/sys/fs/binfmt_misc/register"
         fi
 
+        curl -s -S -f -L -o LICENSE https://raw.githubusercontent.com/jart/cosmopolitan/${VERSION}/LICENSE
+
     - name: Verify cosmocc version
       shell: bash
       run: |
