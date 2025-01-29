@@ -13,7 +13,7 @@ Install cosmocc on GitHub Actions
 <!-- start usage -->
 
 ```yaml
-- uses: bjia56/setup-cosmocc@main
+- uses: bjia56/setup-cosmocc@v0.0.3
   with:
     # Cosmopolitan release version
     # Default: latest
