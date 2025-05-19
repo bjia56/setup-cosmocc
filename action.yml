@@ -17,7 +17,7 @@ runs:
       run: |
         VERSION="${{ inputs.version }}"
         if [[ "${VERSION}" == "latest" ]]; then
-          VERSION=$(curl -s -S -H "Authorization: Bearer ${{ github.token }}" https://api.github.com/repos/jart/cosmopolitan/releases | jq -r .[0].tag_name)
+          VERSION=$(curl --retry 15 --retry-delay 5 -s -S -H "Authorization: Bearer ${{ github.token }}" https://api.github.com/repos/jart/cosmopolitan/releases | jq -r .[0].tag_name)
         fi
 
         INSTALL_DIR="${{ runner.temp }}/cosmocc-${VERSION}"
@@ -32,7 +32,7 @@ runs:
         cd ${INSTALL_DIR}
 
         echo "Downloading cosmocc ${VERSION}"
-        curl -s -S -f -L -o cosmocc.zip https://github.com/jart/cosmopolitan/releases/download/${VERSION}/cosmocc-${VERSION}.zip
+        curl --retry 15 --retry-delay 5 -s -S -f -L -o cosmocc.zip https://github.com/jart/cosmopolitan/releases/download/${VERSION}/cosmocc-${VERSION}.zip
 
         if [[ "${{ runner.os }}" == "Windows" ]]; then
           7z.exe x cosmocc.zip
@@ -49,7 +49,7 @@ runs:
           sudo sh -c "echo ':APE-jart:M::jartsr::${APE_PATH}:' >/proc/sys/fs/binfmt_misc/register"
         fi
 
-        curl -s -S -f -L -o LICENSE https://raw.githubusercontent.com/jart/cosmopolitan/${VERSION}/LICENSE
+        curl --retry 15 --retry-delay 5 -s -S -f -L -o LICENSE https://raw.githubusercontent.com/jart/cosmopolitan/${VERSION}/LICENSE
 
     - name: Verify cosmocc version
       shell: bash
