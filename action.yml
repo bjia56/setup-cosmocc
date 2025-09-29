@@ -40,6 +40,7 @@ runs:
         else
           unzip -qq cosmocc.zip
           echo ${INSTALL_DIR_FORMATTED}/bin >> $GITHUB_PATH
+          chmod +x ${INSTALL_DIR_FORMATTED}/bin/cosmoranlib
         fi
 
         if [[ "${{ runner.os}}" == "Linux" ]]; then
