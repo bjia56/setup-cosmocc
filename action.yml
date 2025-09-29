@@ -35,7 +35,8 @@ runs:
         curl --retry 15 --retry-delay 5 -s -S -f -L -o cosmocc.zip https://github.com/jart/cosmopolitan/releases/download/${VERSION}/cosmocc-${VERSION}.zip
 
         if [[ "${{ runner.os }}" == "Windows" ]]; then
-          7z.exe x -snld cosmocc.zip
+          curl -L -o ${INSTALL_DIR_FORMATTED}/unzip https://cosmo.zip/pub/cosmos/bin/unzip
+          ${INSTALL_DIR_FORMATTED}/unzip cosmocc.zip
           echo ${INSTALL_DIR_FORMATTED}\\bin >> $GITHUB_PATH
         else
           unzip -qq cosmocc.zip
